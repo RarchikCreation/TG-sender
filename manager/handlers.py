@@ -1,6 +1,6 @@
 import time
 from aiogram import types
-from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, FSInputFile
 from aiogram.filters import Command
 from manager.config import CHANNEL_ID, COOLDOWN
 from manager.bot_instance import bot, dp
@@ -21,8 +21,15 @@ async def start_handler(message: types.Message):
 
     user_last_start_time[user_id] = current_time
     user_states[user_id] = "waiting_for_application"
-    await message.reply(
-        "Отправьте вашу заявку в формате:\n\n1. Ссылка на китайца (Профиль Steam)\n2. На сколько китаец по $? \n3. Ваш дискорд\n4. С какой вы тимы?"
+    gif = FSInputFile("assets/gif.gif")
+
+    await message.reply_animation(
+        gif,
+        caption="Отправьте вашу заявку в формате:\n\n"
+                "1. Ссылка на китайца (Профиль Steam)\n"
+                "2. На сколько китаец по $? \n"
+                "3. Ваш дискорд\n"
+                "4. С какой вы тимы?"
     )
 
 @dp.message()
